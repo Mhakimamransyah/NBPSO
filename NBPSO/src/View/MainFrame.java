@@ -113,10 +113,10 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel28 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         Generasi_panel = new javax.swing.JPanel();
-        jPanel31 = new javax.swing.JPanel();
-        label_stoping_criteria = new javax.swing.JComboBox<>();
         jPanel34 = new javax.swing.JPanel();
-        label_input_stoping_point = new javax.swing.JTextField();
+        label_input_generasi = new javax.swing.JTextField();
+        jPanel33 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         populasi_panel = new javax.swing.JPanel();
         populasi_ = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -521,18 +521,18 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel21.setPreferredSize(new java.awt.Dimension(750, 130));
         jPanel21.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setAutoscrolls(true);
 
         tabel_percobaan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Id_percobaan", "Tipe Algoritma", "Akurasi(%)", "Waktu eksekusi(detik)"
             }
         ));
         tabel_percobaan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tabel_percobaan.setPreferredSize(new java.awt.Dimension(300, 80));
         tabel_percobaan.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabel_percobaan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -547,9 +547,13 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tabel_percobaan);
         if (tabel_percobaan.getColumnModel().getColumnCount() > 0) {
             tabel_percobaan.getColumnModel().getColumn(0).setResizable(false);
+            tabel_percobaan.getColumnModel().getColumn(0).setHeaderValue("Id_percobaan");
             tabel_percobaan.getColumnModel().getColumn(1).setResizable(false);
+            tabel_percobaan.getColumnModel().getColumn(1).setHeaderValue("Tipe Algoritma");
             tabel_percobaan.getColumnModel().getColumn(2).setResizable(false);
+            tabel_percobaan.getColumnModel().getColumn(2).setHeaderValue("Akurasi(%)");
             tabel_percobaan.getColumnModel().getColumn(3).setResizable(false);
+            tabel_percobaan.getColumnModel().getColumn(3).setHeaderValue("Waktu eksekusi(detik)");
         }
 
         jPanel21.add(jScrollPane3, java.awt.BorderLayout.CENTER);
@@ -568,6 +572,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         custome_pengujian.add(Daftar_percobaan);
 
+        custome_algorithm.setPreferredSize(new java.awt.Dimension(749, 200));
         custome_algorithm.setLayout(new javax.swing.BoxLayout(custome_algorithm, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel23.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -629,24 +634,33 @@ public class MainFrame extends javax.swing.JFrame {
         Generasi_panel.setPreferredSize(new java.awt.Dimension(294, 30));
         Generasi_panel.setLayout(new javax.swing.BoxLayout(Generasi_panel, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel31.setPreferredSize(new java.awt.Dimension(10, 69));
-        jPanel31.setLayout(new java.awt.BorderLayout());
-
-        label_stoping_criteria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  Generasi", "  Akurasi" }));
-        label_stoping_criteria.setMaximumSize(new java.awt.Dimension(15, 32767));
-        label_stoping_criteria.setMinimumSize(new java.awt.Dimension(15, 20));
-        label_stoping_criteria.setPreferredSize(new java.awt.Dimension(15, 20));
-        jPanel31.add(label_stoping_criteria, java.awt.BorderLayout.CENTER);
-
-        Generasi_panel.add(jPanel31);
-
         jPanel34.setPreferredSize(new java.awt.Dimension(100, 20));
         jPanel34.setLayout(new java.awt.BorderLayout());
 
-        label_input_stoping_point.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        label_input_stoping_point.setText("1000");
-        label_input_stoping_point.setPreferredSize(new java.awt.Dimension(70, 20));
-        jPanel34.add(label_input_stoping_point, java.awt.BorderLayout.CENTER);
+        label_input_generasi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        label_input_generasi.setText("1000");
+        label_input_generasi.setPreferredSize(new java.awt.Dimension(70, 20));
+        jPanel34.add(label_input_generasi, java.awt.BorderLayout.CENTER);
+
+        jPanel33.setPreferredSize(new java.awt.Dimension(100, 83));
+
+        jLabel13.setText("Generasi");
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+        );
+
+        jPanel34.add(jPanel33, java.awt.BorderLayout.LINE_START);
 
         Generasi_panel.add(jPanel34);
 
@@ -1117,8 +1131,7 @@ public class MainFrame extends javax.swing.JFrame {
           percobaan_baru = this.main_controller.doNaiveBayesClassifier(skenario);
         }else{
            HashMap<String, String> konfigurasi = new HashMap<String, String>();
-           konfigurasi.put("Stoping_criteria", this.label_stoping_criteria.getSelectedItem().toString());
-           konfigurasi.put("Stoping_point",this.label_input_stoping_point.getText());
+           konfigurasi.put("Generasi",this.label_input_generasi.getText());
            konfigurasi.put("Populasi", this.label_input_populasi.getText());
            konfigurasi.put("c1", this.label_input_c1.getText());
            konfigurasi.put("c2", this.label_input_c2.getText());      
@@ -1147,13 +1160,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void enableKonfigurasiPSO(boolean cond){
         
-        this.label_input_stoping_point.setEnabled(cond);
+        this.label_input_generasi.setEnabled(cond);
         this.Generasi_panel.setEnabled(cond);
         this.label_input_populasi.setEnabled(cond);
         this.label_input_c1.setEnabled(cond);
-        this.label_input_c2.setEnabled(cond);
-        this.label_stoping_criteria.setEnabled(cond);
-    
+        this.label_input_c2.setEnabled(cond);    
     }
     
     private void aktifkanSkenario(String nama_skenario){
@@ -1168,18 +1179,20 @@ public class MainFrame extends javax.swing.JFrame {
           DecimalFormat df = new DecimalFormat("#.##");
           
           if(skenario_terpilih.getDaftar_percobaan().size() != 0){
-                 model_tabel.setRowCount(0);
+                model_tabel.setRowCount(0);
                 this.label_log_skenario.setText(skenario_terpilih.getNama());
                 this.label_rerata_akurasi_skenario.setText(Double.parseDouble(df.format(skenario_terpilih.getRerataAkurasiSkenario()).replaceAll(",","."))+" %");
                 Object object[] = new Object[4];
+                int row = 0;
                 for(Percobaan percobaan : skenario_terpilih.getDaftar_percobaan()){
                     object[0] =  percobaan.getId_percobaan();
                     object[1] =  percobaan.getTipe();
                     object[2] =  percobaan.getAkurasi();
                     object[3] =  percobaan.getWaktu();
-                    model_tabel.addRow(object);
+                    model_tabel.insertRow(row, object);
                     this.aktifkanDaftarPercobaan(0);
-                }    
+                    row++;
+                }
           }else{
               model_tabel.setRowCount(0);
               this.aktifkanDaftarPercobaan(-1);
@@ -1320,6 +1333,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -1367,8 +1381,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
@@ -1395,8 +1409,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_generasi;
     private javax.swing.JTextField label_input_c1;
     private javax.swing.JTextField label_input_c2;
+    private javax.swing.JTextField label_input_generasi;
     private javax.swing.JTextField label_input_populasi;
-    private javax.swing.JTextField label_input_stoping_point;
     private javax.swing.JLabel label_jumlah_dl;
     private javax.swing.JLabel label_jumlah_du;
     private javax.swing.JLabel label_log_skenario;
@@ -1404,7 +1418,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_porsi_dl;
     private javax.swing.JLabel label_porsi_du;
     private javax.swing.JLabel label_rerata_akurasi_skenario;
-    private javax.swing.JComboBox<String> label_stoping_criteria;
     private javax.swing.JLabel label_tipe;
     private javax.swing.JButton lihatPartisiData;
     private javax.swing.JPanel list_scenario;

@@ -20,7 +20,7 @@ public class PSO {
     private Data uji;
     private double c1;
     private double c2;
-    private double stoping_point;
+    private double generasi;
     private int jumlah_populasi;
     private ArrayList<Partikel> populasi;
     private Percobaan percobaan;
@@ -29,7 +29,7 @@ public class PSO {
         this.jumlah_populasi = Integer.parseInt(konfigurasi.get("Populasi"));
         this.latih = latih;
         this.uji = uji;
-        this.stoping_point = Double.parseDouble(konfigurasi.get("Stoping_point"));
+        this.generasi = Double.parseDouble(konfigurasi.get("Generasi"));
         this.c1 = Double.parseDouble(konfigurasi.get("c1"));
         this.c2 = Double.parseDouble(konfigurasi.get("c2"));
         this.percobaan = new Percobaan();
@@ -37,27 +37,18 @@ public class PSO {
         this.inisialisasiPartikel();
     }
     
-    public Percobaan getClassificationResult(String stoping){
-        int generasi = 1;
-        double akurasi;
-        Partikel Gbest;
+    public Percobaan getClassificationResult(){
+        int generasi = 0;
+        double akurasi = 0;
+        Partikel Gbest = null;
         
         long waktu_eksekusi   = System.currentTimeMillis();
-        while(true){
+        while(generasi < this.generasi){
             this.evaluasiFitnessSeluruhPartikel();
             Gbest = this.ambilPartikelTerbaik();
             this.updateKecepatanSeluruhPartikel(Gbest);
-            System.out.println("Generasi ke-"+(generasi)+" --> partikel terbaik : "+Gbest.getFitness());
+            System.out.println("Generasi ke-"+(generasi+1)+" --> partikel terbaik : "+Gbest.getFitness());
             akurasi = Gbest.getFitness(); 
-            if(stoping.equalsIgnoreCase("  Generasi")){
-                if(generasi == this.stoping_point){
-                    break;
-                }
-            }else if(stoping.equalsIgnoreCase("  Akurasi")){
-                if(akurasi > this.stoping_point){
-                  break;
-                }   
-            }
             generasi++;
         }
         percobaan.setWaktu((double)(System.currentTimeMillis()-waktu_eksekusi)/1000);

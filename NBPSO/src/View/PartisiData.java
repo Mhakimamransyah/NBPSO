@@ -122,6 +122,7 @@ public class PartisiData extends javax.swing.JFrame {
         jumlah_parkinson.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jumlah_parkinson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sick.png"))); // NOI18N
         jumlah_parkinson.setText("130");
+        jumlah_parkinson.setToolTipText("Parkinson");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -146,6 +147,7 @@ public class PartisiData extends javax.swing.JFrame {
         jumlah_tidak_parkinson.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jumlah_tidak_parkinson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/smile.png"))); // NOI18N
         jumlah_tidak_parkinson.setText("130");
+        jumlah_tidak_parkinson.setToolTipText("Tidak Parkinson");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -170,6 +172,7 @@ public class PartisiData extends javax.swing.JFrame {
         jumlah_Seluruh.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jumlah_Seluruh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/data.png"))); // NOI18N
         jumlah_Seluruh.setText("130");
+        jumlah_Seluruh.setToolTipText("Jumlah Seluruh Data");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);

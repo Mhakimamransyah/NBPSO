@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Partikel {
     
-    private double batas_atas=5;
+    private double batas_atas=1;
     private double batas_bawah=0;
     private NaiveBayes nb;
     private double fitness;

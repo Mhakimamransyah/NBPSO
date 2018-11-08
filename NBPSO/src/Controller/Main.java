@@ -108,7 +108,7 @@ public class Main {
             Data uji = this.dao.getPartisiData(skenario.getAwal_du(), skenario.getAkhir_du());
             
             PSO classifier = new PSO(latih, uji, konfigurasi);
-            percobaan = classifier.getClassificationResult(konfigurasi.get("Stoping_criteria"));
+            percobaan = classifier.getClassificationResult();
             percobaan.setId_percobaan( this.dao.tambahPercobaan(skenario.getId_skenario(), percobaan));
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
