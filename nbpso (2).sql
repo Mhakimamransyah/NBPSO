@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Nov 2018 pada 08.31
+-- Generation Time: 21 Nov 2018 pada 05.57
 -- Versi Server: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -1125,59 +1125,6 @@ INSERT INTO `data_parkinson` (`Nomor_data`, `no`, `subjek_id`, `fitur1`, `fitur2
 (1039, 559, 22, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 2, 0.9, 1, 2, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 0),
 (1040, 564, 22, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.8, 2, 2, 1, 1, 4, 2, 4, 1, 1, 2, 5, 6, 1, 2, 0);
 
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `percobaan`
---
-
-CREATE TABLE `percobaan` (
-  `Id_percobaan` int(11) NOT NULL,
-  `Tipe` varchar(10) NOT NULL,
-  `Akurasi` double NOT NULL,
-  `Waktu` double NOT NULL,
-  `Generasi` int(11) NOT NULL,
-  `Populasi` int(11) NOT NULL,
-  `c1` double NOT NULL,
-  `c2` double NOT NULL,
-  `Bobot` varchar(100) DEFAULT NULL,
-  `Id_skenario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `percobaan`
---
-
-INSERT INTO `percobaan` (`Id_percobaan`, `Tipe`, `Akurasi`, `Waktu`, `Generasi`, `Populasi`, `c1`, `c2`, `Bobot`, `Id_skenario`) VALUES
-(1, 'NB', 60.51, 0.254, 0, 0, 0, 0, NULL, 10),
-(2, 'NB', 60.51, 0.164, 0, 0, 0, 0, NULL, 10),
-(3, 'NB', 60.51, 0.185, 0, 0, 0, 0, NULL, 10),
-(7, 'NB', 60.51, 0.327, 0, 0, 0, 0, NULL, 11),
-(8, 'NB', 60.51, 0.17, 0, 0, 0, 0, NULL, 11),
-(9, 'NB', 60.51, 0.201, 0, 0, 0, 0, NULL, 11),
-(10, 'NBPSO', 61.54, 0.906, 1, 5, 0.2, 0.3, 'Fitur ke  12 bobot 4.916965944043081', 10);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `skenario`
---
-
-CREATE TABLE `skenario` (
-  `Id_skenario` int(11) NOT NULL,
-  `Nama_skenario` varchar(100) NOT NULL,
-  `Partisi_data_latih` varchar(100) NOT NULL,
-  `Partisi_data_uji` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `skenario`
---
-
-INSERT INTO `skenario` (`Id_skenario`, `Nama_skenario`, `Partisi_data_latih`, `Partisi_data_uji`) VALUES
-(10, 'Skenario 1', '391-781', '1-390'),
-(11, 'Skenario 2', '391-781', '1-390');
-
 --
 -- Indexes for dumped tables
 --
@@ -1189,19 +1136,6 @@ ALTER TABLE `data_parkinson`
   ADD PRIMARY KEY (`Nomor_data`);
 
 --
--- Indexes for table `percobaan`
---
-ALTER TABLE `percobaan`
-  ADD PRIMARY KEY (`Id_percobaan`);
-
---
--- Indexes for table `skenario`
---
-ALTER TABLE `skenario`
-  ADD PRIMARY KEY (`Id_skenario`),
-  ADD UNIQUE KEY `Nama_skenario` (`Nama_skenario`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1210,11 +1144,6 @@ ALTER TABLE `skenario`
 --
 ALTER TABLE `data_parkinson`
   MODIFY `Nomor_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1041;
---
--- AUTO_INCREMENT for table `skenario`
---
-ALTER TABLE `skenario`
-  MODIFY `Id_skenario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

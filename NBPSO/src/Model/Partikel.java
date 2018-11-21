@@ -45,7 +45,7 @@ public class Partikel {
     }
     
     public void evaluasiNilaiFitness(){
-        double akurasi = this.nb.getClassifierResult(this.posisi).getAkurasi();
+        double akurasi = this.nb.getClassifierResult(this.posisi);
         if(akurasi > this.fitness){
             this.fitness = akurasi;
             for(int i=0;i<this.posisi.length;i++){

@@ -6,14 +6,14 @@
 package Controller;
 
 import Model.Percobaan;
-import View.MainFrame;
-import View.PartisiData;
+import View.ClassificationFrame;
+import View.Home;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -33,88 +33,60 @@ public class Main {
     }
     
     private void tampilkanFrameUtama(){
+        Home home = new Home(this);
+        home.setVisible(true);
+    }
+    
+    public void tampilklanFrameKlasifikasi(){
+        ClassificationFrame frame = new ClassificationFrame(this);
+        frame.setVisible(true);
+    }
+    
+    public Percobaan doClassificationData(int kfold, HashMap<String, String> konfigurasi){
+        int fold;
+        CrossValidation validation;
+        Percobaan hasil = null;
         try {
-            // METHOD UNTUK MENAMPILKAN TAMPILAN UTAMA APLIKASI
-            MainFrame frame = new MainFrame(this,dao.getAllSkenarioData()); 
-            frame.setVisible(true);
+            Data data = this.dao.getDataParkinson();
+            fold = data.getJumlahSeluruhData()/kfold;
+            validation = new CrossValidation(fold, data);
+            hasil = validation.doCrossValidation(konfigurasi);
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return hasil;
     }
     
-    public void tampilkanFramePartisiData(int awal_dl, int akhir_dl, int awal_du, int akhir_du){
-      // METHOD UNTUK MENAMPILKAN TAMPILAN PARTISI DATA(UJI/ LATIH)
-        try {
-            Data data_latih = dao.getPartisiData(awal_dl,akhir_dl);
-            data_latih.setJenis_data("Latih");
-            Data data_uji = dao.getPartisiData(awal_du,akhir_du);
-            data_uji.setJenis_data("Uji");
-            PartisiData frame_partisi_data = new PartisiData(data_latih,data_uji);
-            frame_partisi_data.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
-    
-    public void hapusSkenario(int id_skenario){
-        try {
-            this.dao.hapusSkenario(id_skenario);
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void hapusPercobaan(int id_percobaan){
-        try {
-            this.dao.hapusPercobaan(id_percobaan);
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public ArrayList<Skenario> buatSkenario(String nama, int awal_dl, int akhir_dl, int awal_du, int akhir_du){
-        // METHOD UNTUK MEMBUAT SKENARIO BARU
-        ArrayList<Skenario> daftar = null;
-        try {
-            dao.tambahSkenario(nama,awal_dl+"-"+akhir_dl,awal_du+"-"+akhir_du);
-            daftar = this.dao.getAllSkenarioData();
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return daftar;
-    }
-    
-    public Percobaan doNaiveBayesClassifier(Skenario skenario){
-        Percobaan percobaan = null;
-        try {
-            Data latih = this.dao.getPartisiData(skenario.getAwal_dl(), skenario.getAkhir_dl());
-            Data uji = this.dao.getPartisiData(skenario.getAwal_du(), skenario.getAkhir_du());
-            
-            NaiveBayes classifier = new NaiveBayes(latih, uji);
-            percobaan = classifier.getClassifierResult(null);
-            percobaan.setId_percobaan( this.dao.tambahPercobaan(skenario.getId_skenario(), percobaan));
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return percobaan;
-    }
-    
-    public Percobaan doPSONaiveBayesClassifier(Skenario skenario, HashMap<String, String> konfigurasi){
-       Percobaan percobaan = null;
-        try {
-            DecimalFormat df = new DecimalFormat("#.##");
-            Data latih = this.dao.getPartisiData(skenario.getAwal_dl(), skenario.getAkhir_dl());
-            Data uji = this.dao.getPartisiData(skenario.getAwal_du(), skenario.getAkhir_du());
-            
-            PSO classifier = new PSO(latih, uji, konfigurasi);
-            percobaan = classifier.getClassificationResult();
-            percobaan.setId_percobaan( this.dao.tambahPercobaan(skenario.getId_skenario(), percobaan));
-        } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return percobaan;
-            
+    public void simpanPercobaan(Percobaan hasil, HashMap<String, String> konfigurasi){
+         JFileChooser chooser = new JFileChooser();
+         int retrival = chooser.showSaveDialog(null);
+         if (retrival == JFileChooser.APPROVE_OPTION) {
+         try {
+            PrintWriter writer = new PrintWriter(chooser.getSelectedFile()+".txt", "UTF-8");
+            writer.println("----------------------------- AKURASI PERCOBAAN -----------------------------------");
+            for(int i=0;i<hasil.getAkurasi_nb().size();i++){
+                writer.println("K"+(i+1)+" =>  NB : "+hasil.getAkurasi_nb().get(i)+", NBPSO : "+hasil.getAkurasi_nbpso().get(i));
+            }
+            writer.println("----------------------------- KONFIGURASI PSO ---------------------------------------");
+            writer.println("Generasi : "+konfigurasi.get("Generasi"));
+            writer.println("Populasi : "+konfigurasi.get("Populasi"));
+            writer.println("C1              : "+konfigurasi.get("c1"));
+            writer.println("C2              : "+konfigurasi.get("c2"));
+            writer.println("----------------------------- BOBOT HASIL PERCOBAAN -----------------------------");
+            int k_index = 1;
+            for(double[] fold:hasil.getBobot()){
+                writer.println("K"+k_index);
+                for(int i=0;i<fold.length;i++){
+                    writer.println("Bobot Fitur ke-"+(i+1)+" : "+fold[i]);
+                }
+                writer.println(" ");
+                k_index++;
+            }
+            writer.close();
+         } catch (Exception ex) {
+            ex.printStackTrace();
+         }     
+      }
     }
     
 }

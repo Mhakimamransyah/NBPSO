@@ -23,7 +23,6 @@ public class PSO {
     private double generasi;
     private int jumlah_populasi;
     private ArrayList<Partikel> populasi;
-    private Percobaan percobaan;
     
     public PSO(Data latih, Data uji, HashMap<String, String> konfigurasi){
         this.jumlah_populasi = Integer.parseInt(konfigurasi.get("Populasi"));
@@ -32,35 +31,27 @@ public class PSO {
         this.generasi = Double.parseDouble(konfigurasi.get("Generasi"));
         this.c1 = Double.parseDouble(konfigurasi.get("c1"));
         this.c2 = Double.parseDouble(konfigurasi.get("c2"));
-        this.percobaan = new Percobaan();
         this.populasi = new ArrayList<Partikel>(jumlah_populasi);
         this.inisialisasiPartikel();
     }
     
-    public Percobaan getClassificationResult(){
+    public Percobaan getClassificationResult(Percobaan hasil){
         int generasi = 0;
         double akurasi = 0;
         Partikel Gbest = null;
         
-        long waktu_eksekusi   = System.currentTimeMillis();
+        long waktu_eksekusi = System.currentTimeMillis();
         while(generasi < this.generasi){
             this.evaluasiFitnessSeluruhPartikel();
             Gbest = this.ambilPartikelTerbaik();
             this.updateKecepatanSeluruhPartikel(Gbest);
-            System.out.println("Generasi ke-"+(generasi+1)+" --> partikel terbaik : "+Gbest.getFitness());
+//            System.out.println("Generasi ke-"+(generasi+1)+" --> partikel terbaik : "+Gbest.getFitness());
             akurasi = Gbest.getFitness(); 
             generasi++;
         }
-        percobaan.setWaktu((double)(System.currentTimeMillis()-waktu_eksekusi)/1000);
-        percobaan.setAkurasi(akurasi);
-        percobaan.setGenerasi(generasi);
-        percobaan.setC1(this.c1);
-        percobaan.setC2(this.c2);
-        percobaan.setPopulasi(this.jumlah_populasi);
-        percobaan.setTipe("NBPSO");
-        percobaan.setBobot(Gbest.ambilBobotFiturTertinggi());
-        
-        return this.percobaan;
+        hasil.tambahAkurasiNBPSO(akurasi);
+        hasil.tambahBobotTiapK(Gbest.getPosisi());
+        return hasil;
     }
     
     

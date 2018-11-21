@@ -6,7 +6,6 @@
 package Controller;
 
 import Model.Fitur;
-import Model.Percobaan;
 import java.text.DecimalFormat;
 
 /**
@@ -19,16 +18,14 @@ public class NaiveBayes {
     private Data uji;
     private double prior_probability_kelas_parkinson;
     private double prior_probability_kelas_tidak_parkinson;
-    private Percobaan percobaan;
     
     public NaiveBayes(Data latih, Data uji){
-        this.percobaan = new Percobaan();
         this.latih = latih;
         this.uji = uji;
         this.hitungPriorProbability();
     }
     
-    public Percobaan getClassifierResult(double[] weight_vector){ 
+    public double getClassifierResult(double[] weight_vector){ 
         DecimalFormat df = new DecimalFormat("#.##");
         double[] cond_prob_1;
         double[] cond_prob_2;
@@ -40,12 +37,8 @@ public class NaiveBayes {
            cond_prob_2 = this.hitungConditionalProbability(fitur, "Tidak",weight_vector);
            true_classification = this.setAkurasi(true_classification,this.hitungPosteriorProbability(cond_prob_1, cond_prob_2), fitur.getLabel());
            baris++;
-        }
-        percobaan.setWaktu((double)(System.currentTimeMillis()-waktu_eksekusi)/1000);
-        percobaan.setTipe("NB");
-        percobaan.setAkurasi(Double.parseDouble(df.format((true_classification/this.uji.getJumlahSeluruhData())*100).replaceAll(",",".")));
-        
-        return percobaan;
+        }    
+        return Double.parseDouble(df.format((true_classification/this.uji.getJumlahSeluruhData())*100).replaceAll(",","."));
     }
     
     private void hitungPriorProbability(){
