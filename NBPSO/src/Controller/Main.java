@@ -67,6 +67,8 @@ public class Main {
             for(int i=0;i<hasil.getAkurasi_nb().size();i++){
                 writer.println("K"+(i+1)+" =>  NB : "+hasil.getAkurasi_nb().get(i)+", NBPSO : "+hasil.getAkurasi_nbpso().get(i));
             }
+            writer.println("Rata-rata akurasi NB    : "+hasil.getRerataAkurasi("NB")+" %");
+            writer.println("Rata-rata akurasi NBPSO : "+hasil.getRerataAkurasi("NBPSO")+" %");
             writer.println("----------------------------- KONFIGURASI PSO ---------------------------------------");
             writer.println("Generasi : "+konfigurasi.get("Generasi"));
             writer.println("Populasi : "+konfigurasi.get("Populasi"));

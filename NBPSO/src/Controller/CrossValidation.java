@@ -23,7 +23,7 @@ public class CrossValidation {
         this.data = data;
         this.kfold = fold;
         hasil = new Percobaan(this.kfold);
-        Collections.shuffle(this.data.getFitur());
+//        Collections.shuffle(this.data.getFitur());
     }
     
     public Percobaan doCrossValidation(HashMap<String, String> konfigurasi){

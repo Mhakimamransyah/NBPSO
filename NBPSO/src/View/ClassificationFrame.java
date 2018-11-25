@@ -98,6 +98,10 @@ public class ClassificationFrame extends javax.swing.JFrame {
         panel_log = new javax.swing.JPanel();
         button = new javax.swing.JPanel();
         simpanPercobaan = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        rerata_nb = new javax.swing.JLabel();
+        rerata_nbpso = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Classification Window");
@@ -419,7 +423,8 @@ public class ClassificationFrame extends javax.swing.JFrame {
 
         jPanel3.add(log_result);
 
-        button.setMinimumSize(new java.awt.Dimension(100, 70));
+        button.setMaximumSize(new java.awt.Dimension(32767, 30));
+        button.setMinimumSize(new java.awt.Dimension(100, 30));
         button.setPreferredSize(new java.awt.Dimension(599, 30));
 
         simpanPercobaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/save.png"))); // NOI18N
@@ -431,19 +436,40 @@ public class ClassificationFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Rata-rata Akurasi NB : ");
+
+        jLabel3.setText("Rata-rata Akurasi NBPSO : ");
+
+        rerata_nb.setText("0 %");
+
+        rerata_nbpso.setText("0 %");
+
         javax.swing.GroupLayout buttonLayout = new javax.swing.GroupLayout(button);
         button.setLayout(buttonLayout);
         buttonLayout.setHorizontalGroup(
             buttonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonLayout.createSequentialGroup()
-                .addGap(0, 550, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rerata_nb)
+                .addGap(69, 69, 69)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rerata_nbpso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
                 .addComponent(simpanPercobaan, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         buttonLayout.setVerticalGroup(
             buttonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonLayout.createSequentialGroup()
-                .addComponent(simpanPercobaan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGroup(buttonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(simpanPercobaan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(rerata_nb)
+                    .addComponent(rerata_nbpso))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel3.add(button);
@@ -505,6 +531,7 @@ public class ClassificationFrame extends javax.swing.JFrame {
          this.centeringTable();
          this.panel_log.removeAll();
          this.drawLogResult();
+         this.drawRerataAkurasi();
     }
     
      private void centeringTable(){
@@ -513,6 +540,11 @@ public class ClassificationFrame extends javax.swing.JFrame {
        for(int i=0;i<this.tabel_hasil_cross_validation.getColumnCount();i++){
            this.tabel_hasil_cross_validation.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
        }    
+    }
+     
+    private void drawRerataAkurasi(){
+        this.rerata_nb.setText(this.hasil_percobaan.getRerataAkurasi("NB")+" %");
+        this.rerata_nbpso.setText(this.hasil_percobaan.getRerataAkurasi("NBPSO")+" %");
     }
     
     
@@ -595,6 +627,8 @@ public class ClassificationFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -631,6 +665,8 @@ public class ClassificationFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_log;
     private javax.swing.JPanel populasi_;
     private javax.swing.JPanel populasi_panel;
+    private javax.swing.JLabel rerata_nb;
+    private javax.swing.JLabel rerata_nbpso;
     private javax.swing.JScrollPane scrollpanel_log;
     private javax.swing.JButton simpanPercobaan;
     private javax.swing.JTable tabel_hasil_cross_validation;

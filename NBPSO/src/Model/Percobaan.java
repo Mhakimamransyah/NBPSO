@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,23 @@ public class Percobaan {
         this.akurasi_nbpso = new ArrayList<Double>(kfold);    
         this.bobot = new ArrayList<double[]>(kfold);
     }
+    
+    public double getRerataAkurasi(String tipe){
+        double rerata;
+        ArrayList<Double> alg = null;
+        DecimalFormat df = new DecimalFormat("#.##");
+        switch(tipe){
+            case "NBPSO" : alg = this.akurasi_nbpso; break;
+            case "NB" : alg = this.akurasi_nb; break;
+        }
+        double sum = 0;
+        for(Double akurasi : alg){
+              sum = sum + akurasi;
+        }
+        rerata = sum/alg.size();
+        return Double.parseDouble(df.format(rerata).replaceAll(",","."));
+    }
+   
     
     public void tambahAkurasiNB(double akurasi){
         this.akurasi_nb.add(akurasi);
