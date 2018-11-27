@@ -63,17 +63,26 @@ public class Main {
          if (retrival == JFileChooser.APPROVE_OPTION) {
          try {
             PrintWriter writer = new PrintWriter(chooser.getSelectedFile()+".txt", "UTF-8");
-            writer.println("----------------------------- AKURASI PERCOBAAN -----------------------------------");
-            for(int i=0;i<hasil.getAkurasi_nb().size();i++){
-                writer.println("K"+(i+1)+" =>  NB : "+hasil.getAkurasi_nb().get(i)+", NBPSO : "+hasil.getAkurasi_nbpso().get(i));
-            }
-            writer.println("Rata-rata akurasi NB    : "+hasil.getRerataAkurasi("NB")+" %");
-            writer.println("Rata-rata akurasi NBPSO : "+hasil.getRerataAkurasi("NBPSO")+" %");
             writer.println("----------------------------- KONFIGURASI PSO ---------------------------------------");
             writer.println("Generasi : "+konfigurasi.get("Generasi"));
             writer.println("Populasi : "+konfigurasi.get("Populasi"));
             writer.println("C1              : "+konfigurasi.get("c1"));
             writer.println("C2              : "+konfigurasi.get("c2"));
+            writer.println(" ");
+            writer.println("----------------------------- AKURASI PERCOBAAN -----------------------------------");
+            for(int i=0;i<hasil.getAkurasi_nb().size();i++){
+                writer.println("K"+(i+1)+" =>  NB : "+hasil.getAkurasi_nb().get(i)+" %, NBPSO : "+hasil.getAkurasi_nbpso().get(i)+" %");
+            }
+            writer.println("Rata-rata akurasi NB          : "+hasil.getRerata("akurasi NB")+" %");
+            writer.println("Rata-rata akurasi NBPSO : "+hasil.getRerata("akurasi NBPSO")+" %");
+            writer.println(" ");
+             writer.println("----------------------------- WAKTU EKSEKUSI -----------------------------------------");
+            for(int i=0;i<hasil.getWaktu_eksekusi_nb().size();i++){
+                writer.println("K"+(i+1)+" =>  NB : "+hasil.getWaktu_eksekusi_nb().get(i)+" (detik), NBPSO : "+hasil.getWaktu_eksekusi_nbpso().get(i)+" (detik)");
+            }
+            writer.println("Rata-rata waktu eksekusi NB          : "+hasil.getRerata("waktu NB")+" (detik)");
+            writer.println("Rata-rata waktu eksekusi NBPSO : "+hasil.getRerata("waktu NBPSO")+" (detik)");
+            writer.println(" ");
             writer.println("----------------------------- BOBOT HASIL PERCOBAAN -----------------------------");
             int k_index = 1;
             for(double[] fold:hasil.getBobot()){

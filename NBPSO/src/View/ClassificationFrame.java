@@ -196,7 +196,7 @@ public class ClassificationFrame extends javax.swing.JFrame {
         jPanel34.setLayout(new java.awt.BorderLayout());
 
         label_input_generasi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        label_input_generasi.setText("1000");
+        label_input_generasi.setText("10");
         label_input_generasi.setPreferredSize(new java.awt.Dimension(70, 20));
         jPanel34.add(label_input_generasi, java.awt.BorderLayout.CENTER);
 
@@ -285,7 +285,8 @@ public class ClassificationFrame extends javax.swing.JFrame {
         jPanel37.setLayout(new java.awt.BorderLayout());
 
         label_input_c1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        label_input_c1.setText("0.2");
+        label_input_c1.setText("2");
+        label_input_c1.setEnabled(false);
         jPanel37.add(label_input_c1, java.awt.BorderLayout.CENTER);
 
         c1_panel.add(jPanel37);
@@ -319,7 +320,8 @@ public class ClassificationFrame extends javax.swing.JFrame {
         jPanel41.setLayout(new java.awt.BorderLayout());
 
         label_input_c2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        label_input_c2.setText("0.3");
+        label_input_c2.setText("2");
+        label_input_c2.setEnabled(false);
         jPanel41.add(label_input_c2, java.awt.BorderLayout.CENTER);
 
         c2_panel.add(jPanel41);
@@ -543,26 +545,30 @@ public class ClassificationFrame extends javax.swing.JFrame {
     }
      
     private void drawRerataAkurasi(){
-        this.rerata_nb.setText(this.hasil_percobaan.getRerataAkurasi("NB")+" %");
-        this.rerata_nbpso.setText(this.hasil_percobaan.getRerataAkurasi("NBPSO")+" %");
+        this.rerata_nb.setText(this.hasil_percobaan.getRerata("akurasi NB")+" %");
+        this.rerata_nbpso.setText(this.hasil_percobaan.getRerata("akurasi NBPSO")+" %");
     }
     
     
     private void drawLogResult(){
-        int index_k = 1;
+        int index_k = 0;
         this.drawToPanel("  Generasi : "+this.konfigurasi_pso.get("Generasi"));
         this.drawToPanel("  Populasi : "+this.konfigurasi_pso.get("Populasi"));
         this.drawToPanel("  C1       : "+this.konfigurasi_pso.get("c1"));
         this.drawToPanel("  C2       : "+this.konfigurasi_pso.get("c2"));
         this.drawToPanel(" ");
         for(double[] bobot_k : this.hasil_percobaan.getBobot()){
-            this.drawToPanel("  K"+index_k);
+            this.drawToPanel("  K"+(index_k+1)+" (waktu eksekusi nb : "+this.hasil_percobaan.getWaktu_eksekusi_nb().get(index_k)+""
+                    + "(detik), waktu eksekusi nbpso : "+this.hasil_percobaan.getWaktu_eksekusi_nbpso().get(index_k)+"(detik))");
             for(int i=0;i<bobot_k.length;i++){
               this.drawToPanel("  Bobot Fitur "+(i+1)+"   : "+bobot_k[i]);
             }
             this.drawToPanel(" ");
             index_k++;
         }
+        this.drawToPanel("  Rata-rata waktu eksekusi NB         : "+this.hasil_percobaan.getRerata("waktu NB")+" (detik)");
+        this.drawToPanel("  Rata-rata waktu eksekusi NBPSO : "+this.hasil_percobaan.getRerata("waktu NBPSO")+" (detik)");
+        this.drawToPanel(" ");
     }
     
     private void drawToPanel(String text){

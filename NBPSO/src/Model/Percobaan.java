@@ -18,22 +18,46 @@ public class Percobaan {
     private ArrayList<Double> akurasi_nb;
     private ArrayList<Double> akurasi_nbpso;
     private ArrayList<double[]> bobot;
+    private ArrayList<Double> waktu_eksekusi_nb;
+    private ArrayList<Double> waktu_eksekusi_nbpso;
 
-      
     public Percobaan(int kfold){
         this.kfold = kfold;
         this.akurasi_nb = new ArrayList<Double>(kfold);
         this.akurasi_nbpso = new ArrayList<Double>(kfold);    
         this.bobot = new ArrayList<double[]>(kfold);
+        this.waktu_eksekusi_nb = new ArrayList<>(kfold);
+        this.waktu_eksekusi_nbpso = new ArrayList<>(kfold);
     }
     
-    public double getRerataAkurasi(String tipe){
+    public void tambahWaktuEksekusi(String tipe, double waktu){
+        switch(tipe){
+            case "NB"   :  
+                     this.waktu_eksekusi_nb.add(waktu);
+                break;
+            case "NBPSO":  
+                     this.waktu_eksekusi_nbpso.add(waktu);
+                break;
+        }
+    }
+    
+    public ArrayList<Double> getWaktu_eksekusi_nb() {
+        return waktu_eksekusi_nb;
+    }
+
+    public ArrayList<Double> getWaktu_eksekusi_nbpso() {
+        return waktu_eksekusi_nbpso;
+    }
+    
+    public double getRerata(String tipe){
         double rerata;
         ArrayList<Double> alg = null;
         DecimalFormat df = new DecimalFormat("#.##");
         switch(tipe){
-            case "NBPSO" : alg = this.akurasi_nbpso; break;
-            case "NB" : alg = this.akurasi_nb; break;
+            case "akurasi NBPSO" : alg = this.akurasi_nbpso; break;
+            case "akurasi NB" : alg = this.akurasi_nb; break;
+            case "waktu NB" : alg = this.waktu_eksekusi_nb; break;
+            case "waktu NBPSO" : alg = this.waktu_eksekusi_nbpso; break;
         }
         double sum = 0;
         for(Double akurasi : alg){
