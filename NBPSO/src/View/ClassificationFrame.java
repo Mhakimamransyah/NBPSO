@@ -89,6 +89,7 @@ public class ClassificationFrame extends javax.swing.JFrame {
         log_result_k = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lihatData = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabel_hasil_cross_validation = new javax.swing.JTable();
@@ -372,17 +373,27 @@ public class ClassificationFrame extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/list.png"))); // NOI18N
         jLabel1.setText("Akurasi K Cross Validation");
 
+        lihatData.setText("Data");
+        lihatData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihatDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 556, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE)
+                .addComponent(lihatData))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(lihatData, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         log_result_k.add(jPanel5);
@@ -516,6 +527,10 @@ public class ClassificationFrame extends javax.swing.JFrame {
             this.main.simpanPercobaan(hasil_percobaan, konfigurasi_pso);    
         }
     }//GEN-LAST:event_simpanPercobaanActionPerformed
+
+    private void lihatDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatDataActionPerformed
+        this.main.tampilkanFrameData();
+    }//GEN-LAST:event_lihatDataActionPerformed
     
     private void setTabelData(){
          DefaultTableModel tabel = (DefaultTableModel) this.tabel_hasil_cross_validation.getModel();
@@ -665,6 +680,7 @@ public class ClassificationFrame extends javax.swing.JFrame {
     private javax.swing.JTextField label_input_c2;
     private javax.swing.JTextField label_input_generasi;
     private javax.swing.JTextField label_input_populasi;
+    private javax.swing.JButton lihatData;
     private javax.swing.JPanel log_result;
     private javax.swing.JPanel log_result_k;
     private javax.swing.JButton mulaiKlasifikasi;

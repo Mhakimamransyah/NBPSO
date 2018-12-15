@@ -5,9 +5,8 @@
         <group>
             <file>file:/E:/ABU/NBPSO/NBPSO/src/Controller/Main.java</file>
             <file>file:/E:/ABU/NBPSO/NBPSO/src/View/ClassificationFrame.java</file>
-            <file>file:/E:/ABU/NBPSO/NBPSO/src/Controller/CrossValidation.java</file>
-            <file>file:/E:/ABU/NBPSO/NBPSO/src/Model/Percobaan.java</file>
-            <file>file:/E:/ABU/NBPSO/NBPSO/src/Controller/PSO.java</file>
+            <file>file:/E:/ABU/NBPSO/NBPSO/src/View/DataFrame.java</file>
+            <file>file:/E:/ABU/NBPSO/NBPSO/src/Controller/Data.java</file>
         </group>
     </open-files>
 </project-private>

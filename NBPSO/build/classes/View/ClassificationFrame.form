@@ -625,13 +625,17 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="556" max="32767" attributes="0"/>
+                                      <EmptySpace pref="501" max="32767" attributes="0"/>
+                                      <Component id="lihatData" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel1" alignment="0" pref="26" max="32767" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel1" alignment="3" pref="26" max="32767" attributes="0"/>
+                                      <Component id="lihatData" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -646,6 +650,14 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Akurasi K Cross Validation"/>
                               </Properties>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="lihatData">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Data"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lihatDataActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>

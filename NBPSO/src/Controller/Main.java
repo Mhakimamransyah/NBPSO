@@ -7,6 +7,7 @@ package Controller;
 
 import Model.Percobaan;
 import View.ClassificationFrame;
+import View.DataFrame;
 import View.Home;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -40,6 +41,16 @@ public class Main {
     public void tampilklanFrameKlasifikasi(){
         ClassificationFrame frame = new ClassificationFrame(this);
         frame.setVisible(true);
+    }
+    
+    public void tampilkanFrameData(){
+        try {
+            Data data = this.dao.getDataParkinson();
+            DataFrame frame = new DataFrame(data);
+            frame.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Percobaan doClassificationData(int kfold, HashMap<String, String> konfigurasi){
